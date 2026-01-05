@@ -154,3 +154,17 @@
     }
   }
 }
+
+.view__now-img,
+.online__wrapper-img {
+  display: block;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    filter: brightness(0.9);
+  }
+}
