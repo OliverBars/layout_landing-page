@@ -1,0 +1,193 @@
+.steps {
+  color: #fff;
+  font-family: sans-serif;
+
+  &__container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  &__main-title {
+    font-weight: 400;
+    font-size: 32px; // Менший заголовок для мобільних
+    line-height: 110%;
+    margin-bottom: 40px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 60px; // Менший розрив на мобільних
+  }
+
+  &__item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__number {
+    color: rgba(212, 255, 0, 0.15);
+    font-weight: 600;
+    font-size: 80px; // Зменшуємо цифру
+    line-height: 1;
+    margin-bottom: -30px; // Наплив тексту на цифру
+    pointer-events: none;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+  }
+
+  &__title {
+    color: #a6ce39;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+
+  &__subtitle {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 10px;
+  }
+
+  &__line {
+    display: none;
+  }
+
+  // --- АДАПТИВ ДЛЯ ВЕЛИКИХ ЕКРАНІВ ---
+  @media (min-width: 1024px) {
+    &__main-title {
+      font-size: 78px;
+      margin-bottom: 70px;
+    }
+
+    &__list {
+      display: grid;
+      grid-template-columns: 1fr 100px 1fr;
+      row-gap: 140px;
+    }
+
+    &__item {
+      max-width: 800px;
+      grid-column: 1 / span 2;
+      justify-self: start;
+
+      &--right {
+        grid-column: 2 / span 2;
+        margin-top: -20px;
+        margin-left: -50px;
+        justify-self: start;
+      }
+      &-img{
+        width: 445px;
+        height: auto;
+        position: relative;
+        top: -200px;
+        left: 200px;
+      }
+    }
+
+    &__number {
+      position: absolute;
+      left: -2px;
+      top: -39px;
+      font-size: 177px;
+      margin-bottom: 0;
+    }
+
+    &__content {
+      padding-top: 60px;
+    }
+
+    &__title {
+      padding-left: 362px;
+      padding-right: 46px;
+      margin-bottom: 8px;
+    }
+
+    &__subtitle {
+      margin-top: -30px;
+      padding-left: 363px;
+    }
+
+    &__line {
+      display: flex; // Повертаємо лінію тільки на десктопі
+      align-items: flex-end;
+      height: 40px;
+
+      .steps__dot {
+        width: 4px; height: 4px;
+        background-color: #fff;
+        border-radius: 50%;
+        margin-bottom: -2px;
+        flex-shrink: 0;
+      }
+
+      .steps__line-main {
+        width: 296px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        flex-shrink: 0;
+      }
+
+      .steps__line-slope {
+        width: 40px; height: 40px;
+        position: relative;
+        flex-shrink: 0;
+
+        &::after {
+          content: '';
+          position: absolute;
+          width: 58px;
+          height: 1px;
+          bottom: 0; left: 0;
+          transform-origin: left bottom;
+          transform: rotate(-45deg);
+          background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5) 50%, transparent 50%);
+          background-size: 4px 1px;
+          background-repeat: repeat-x;
+        }
+      }
+
+      .steps__line-end {
+        flex-grow: 1;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        height: 40px;
+        position: relative;
+        top: -1px;
+      }
+    }
+  }
+}
+
+.steps {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200vw;
+    height: 100vh;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      circle at center,
+      rgba(212, 255, 0, 0.35) 0%,
+      rgba(57, 72, 12, 0.15) 15%,
+      rgba(11, 17, 1, 0) 50%
+    );
+    filter: blur(120px);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  &__container {
+    position: relative;
+    z-index: 2;
+  }
+}

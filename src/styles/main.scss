@@ -1,3 +1,14 @@
-body {
-  margin: 0;
-}
+@use './normalize';
+@use './base';
+@use './header';
+@use './argo-section';
+@use './bottom-section';
+@use './products-section';
+@use './work-section';
+@use './check-section';
+@use './foto-section';
+@use './clients-section';
+@use './work-foto-section';
+@use './materials-secrion';
+@use './steps-section';
+@use './footer';

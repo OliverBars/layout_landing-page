@@ -1,0 +1,201 @@
+$main-font: 'Helvetica Neue', Arial, sans-serif;
+$accent-green: #498e02;
+$text-gray: #999;
+
+body {
+  color: #ffffff;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  font-family: $main-font;
+  overflow-x: hidden;
+  background-color: #080f05;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('../fonts/HelveticaNeueUltraLight.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('../fonts/HelveticaNeueThin.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('../fonts/HelveticaNeueLight.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('../fonts/HelveticaNeueRoman.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('../fonts/HelveticaNeueMedium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('../fonts/HelveticaNeueBold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('../fonts/HelveticaNeueBlack.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+@mixin card-base($padding) {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: hsla(0, 0%, 22%, 0.302);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: $padding;
+  box-sizing: border-box;
+  text-align: center;
+  transition: all 0.3s ease;
+
+  // Кути
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    width: 31px;
+    height: 31px;
+    border: 2px solid #555;
+    z-index: 1;
+    @media (max-width: 768px) { width: 20px; height: 20px; } // Зменшуємо кути на мобілках
+  }
+  &::before { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+  &::after { bottom: 10px; right: 10px; border-top: none; border-left: none; }
+
+  .corners {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      border: 2px solid #555;
+    }
+    &::before { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+    &::after { bottom: 10px; left: 10px; border-top: none; border-right: none; }
+
+    @media (max-width: 768px) {
+      &::before, &::after { width: 20px; height: 20px; }
+    }
+  }
+
+  // Десктопна сітка (Шахи)
+  @media (min-width: 1025px) {
+    &:nth-child(1) { grid-column: 1; grid-row: 1; }
+    &:nth-child(2) { grid-column: 3; grid-row: 1; }
+    &:nth-child(3) { grid-column: 2; grid-row: 2; }
+    &:nth-child(4) { grid-column: 4; grid-row: 2; }
+  }
+
+  // Адаптив під зелену картку (завжди 4-та)
+  &:nth-child(4) {
+    background-color: #4b8e05;
+    border: none;
+    &::before, &::after, .corners::before, .corners::after {
+      border-color: #fff;
+    }
+  }
+
+  // Зменшення паддінгу для планшетів та мобілок
+  @media (max-width: 1024px) {
+    padding: 40px;
+  }
+  @media (max-width: 480px) {
+    padding: 20px;
+    font-size: 18px;
+  }
+}
+
+// Загальний адаптив для контейнерів
+%grid-adaptive {
+  display: grid;
+  gap: 5px;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  // 4 колонки для ПК
+  grid-template-columns: repeat(4, 1fr);
+
+  // 2 колонки для планшетів
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // 1 колонка для мобілок
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Використання
+.materials__wrapper {
+  @extend %grid-adaptive;
+  &-card {
+    @include card-base(70px);
+    font-size: clamp(18px, 2vw, 24px); // Шрифт, що тягнеться
+  }
+}
+
+.products__container {
+  @extend %grid-adaptive;
+  &-card {
+    @include card-base(30px);
+  }
+}
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; // Це вб'є будь-яку горизонтальну прокрутку
+  position: relative;
+}
+
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
